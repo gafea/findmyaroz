@@ -6,6 +6,7 @@
     --bg-def: rgba(239,239,239,.9);
     --bg-grd-def: radial-gradient(farthest-corner at 50% -2em,rgba(255,255,255,95),rgba(255,255,255,.75),rgba(255,255,255,.2));
     --border-def: rgba(255,255,255,.5);
+    --bgcolor: #f0f8ff;
 }
 @supports (backdrop-filter:blur(1em)) or (-webkit-backdrop-filter:blur(1em)) {
     :root{
@@ -161,7 +162,7 @@ input:disabled ~ .checkmark, input:disabled ~ .checkmark:hover{cursor:default!im
 .dwhdab:hover:active{transform:scale(0.9)}
 .dwhdab > img {object-fit:cover;user-select:none;width:calc(100% - 0.5em);height:calc(100% - 0.5em);padding:0.25em;transition-duration:0.1s;-webkit-touch-callout:none}
 .dwhtdo{justify-content:flex-start}
-.jtx{display:inline-block;margin-right:0.35em;padding:calc(0.4em - 2px) 0.5em!important;color:#999999;border:2px solid rgba(128,128,128,.3);user-select:none}
+.jtx{display:inline-block;margin:0.5em;padding:calc(0.4em - 2px) 0.5em!important;color:#999999;border:2px solid rgba(128,128,128,.3);border-radius:0.5em;user-select:none}
 
 .ckusrico{justify-content:end!important;height:100%}
 .ckusrbtn{border-radius:3em;padding:0.3em;transition-timing-function:cubic-bezier(.2,.9,0,1.36);transition-duration:0s;aspect-ratio:1/1;z-index:11001;cursor:pointer;position:absolute;right:1em;outline:none;border:0;margin:0;background-color:rgba(0,0,0,0);border-color:rgba(128,128,128,.3)}
@@ -245,7 +246,7 @@ input:disabled ~ .checkmark, input:disabled ~ .checkmark:hover{cursor:default!im
 #topbar_title_inwrap_main, #topbar_title_inwrap_secondary, #topbar_title_inwarp_sec_buf{transition-duration:0.3s}
 #topbar_title_inwrap_main > * {vertical-align:middle}
 #topbar_subtitle, #topbar_inwrap_subtitle{font-weight:normal;display:block/*;width:min-content;white-space:pre*/}
-#topbar_title_inwarp_sec_buf{height:0;max-height:0}
+#topbar_title_inwarp_sec_buf, #topbar_title_inwarp_sec_buf_sec{height:0;max-height:0}
 .topbar, .bottom_wrp, .ckusrbtn:focus, .ckusrbtn:focus-within, #kbShortcutMenu{background-color:rgba(255,255,255,.95);backdrop-filter:blur(1em);-webkit-backdrop-filter:blur(1em)}
 .topbar, #kbShortcutMenu{background-color:rgba(255,255,255,.95)}
 @supports (backdrop-filter:blur(1em)) {.dwdt_top, .bottom_wrp, .ckusrbtn:focus, .ckusrbtn:focus-within{background-color:rgba(255,255,255,.8)} #kbShortcutMenu{background-color:rgba(255,255,255,.6)}}
@@ -310,7 +311,7 @@ input:checked + .sliorange:hover {background-color:#f89e29}
 #postbox{width:calc(100% - 3em);padding:1.5em;padding-top:1.25em;border-radius:1.5em 1.5em 0 0;background-image:var(--bg-grd-def);min-height:calc(100vh - 3.75em - 2.75em)}
 .edge2edge{padding:0.75em;padding:0.75em max(env(safe-area-inset-right) + 0.25em, 0.75em) 0.75em max(env(safe-area-inset-left) + 0.25em, 0.75em)}
 .card{padding:1em;padding:1em max(env(safe-area-inset-right) + 0.25em, 1em) 1em max(env(safe-area-inset-left) + 0.25em, 1em)}
-.topbar{min-height:0;top:-3.5em;top:calc(-3.5em - env(safe-area-inset-top));border-radius:1.5em;border-bottom:none;padding:8px;padding:calc(8px + env(safe-area-inset-top)) 8px 8px 8px;flex-flow:wrap!important;flex-padding:16px calc(16px + 0.5em);box-shadow:0 0.25em 0.5em rgba(0,0,0,0)}
+.topbar{min-height:0;top:-3.5em;top:calc(-3.5em - env(safe-area-inset-top));border-radius:0 0 1.5em 1.5em;border-bottom:none;padding:8px;padding:calc(8px + env(safe-area-inset-top)) 8px 8px 8px;flex-flow:wrap!important;flex-padding:16px calc(16px + 0.5em);box-shadow:0 0.25em 0.5em rgba(0,0,0,0)}
 .topbar + .card{margin-top:0.5em; box-shadow: 0 -0.25em 0.25em rgba(0,0,0,0.15);border-radius:1.5em;background-color: var(--bgcolor)}
 .dwhdi{flex-flow:wrap;overflow-x:none}
 .dwhdt{white-space:normal;flex-flow:wrap;padding:0.25em}
@@ -320,7 +321,8 @@ input:checked + .sliorange:hover {background-color:#f89e29}
 #topbar_title, #topbar_subtitle, #topbar_inwrap_title, #topbar_inwrap_subtitle{max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap}
 #topbar_title_wrap, #topbar_title_inwrap_secondary{max-height:unset}
 #topbar_loading{position:fixed;top:1em;right:0.5em;top:calc(env(safe-area-inset-top) + 1em);right:calc(env(safe-area-inset-right) + 0.5em);border-radius:50%;backdrop-filter:blur(1em);-webkit-backdrop-filter:blur(1em)}
-#topbar_title_inwarp_sec_buf{height:3.5em}
+#topbar_title_inwarp_sec_buf{height:2.75em;border-radius:0.5em;background-color:rgba(255,192,192,.4);width:calc(100% - 2.5em)}
+#topbar_title_inwarp_sec_buf_sec{height:0.75em}
 .tabview, .bottom_wrp > .tabview{position:fixed;bottom:calc(env(safe-area-inset-bottom));left:0;right:unset;z-index:10000;margin:0.35em}
 .tabview:focus-within{z-index:10100}
 .tabview-wrp{transition-duration:0.05s;display:block;border-radius:1em;padding:0.5em 0.5em 0 0;max-height:calc(100vh - 6.5em);overflow-y:auto}

@@ -2,7 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const http = require('http')
 const mdns = require('multicast-dns')()
-var foundAROZ = foundAROZ_API = {}
+var foundAROZ = {}
+var foundAROZ_API = {date: new Date().toUTCString(), data: {}}
 
 mdns.on('response', function(response) {
   //console.log('got a response packet:', response)
@@ -43,14 +44,19 @@ setInterval(() => { //scan mDNS
           type: 'TXT',
         }]
     })
+    mdns.query({
+        questions:[{
+          name: '_http._tcp.local',
+          type: 'SRV',
+        }]
+    })
 }, 4000)
 
 setInterval(() => { //clear foundAROZ periodically
-    console.log(foundAROZ)
-    if (foundAROZ != {}) foundAROZ_API = JSON.parse(JSON.stringify(foundAROZ))
+    if (!!Object.keys(foundAROZ).length && !equalObj(foundAROZ_API.data, foundAROZ)) foundAROZ_API = {date: new Date().toUTCString(), data: JSON.parse(JSON.stringify(foundAROZ))}
+    console.log(foundAROZ_API)
     foundAROZ = {}
 }, 8000)
-
 
 //webserver
 const serverAPI = http.createServer((req, res) => {
@@ -58,7 +64,12 @@ const serverAPI = http.createServer((req, res) => {
         
     if (req.url.startsWith('/!')) {
       if (req.url === '/!foundAROZ/') {
-        res.writeHead(200, { 'Content-Type': 'application/json', 'Server': 'joutou' })
+        if (req.headers['if-modified-since'] && Date.parse(req.headers['if-modified-since']) >= Date.parse(foundAROZ_API.date)) {
+            res.writeHead(304, { })
+            res.end("")
+            return
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Server': 'joutou', "Last-Modified": foundAROZ_API.date })
         res.end(JSON.stringify( foundAROZ_API ))
         return
       }
@@ -101,7 +112,19 @@ const serverAPI = http.createServer((req, res) => {
     
 })
 serverAPI.listen(7070, "localhost")
-console.log("Web Server Starting / 7070")
+console.log("Web Server Starting / localhost:7070")
+
+const equalObj = (a, b) => {
+    if (a === b) return true;
+    if (a instanceof Date && b instanceof Date)
+      return a.getTime() === b.getTime();
+    if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
+      return a === b;
+    if (a.prototype !== b.prototype) return false;
+    const keys = Object.keys(a);
+    if (keys.length !== Object.keys(b).length) return false;
+    return keys.every(k => equalObj(a[k], b[k]));
+}
 
 const returnErr = (res, statusCode = 404, message = "", useJSON = false) => {
     var headerStr = {}

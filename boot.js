@@ -7,7 +7,10 @@ function renderTopBar(title = ' ', subtitle = '', buttonHTML = '', showSearch 
                 <h4 id="topbar_title">` + title + '</h4><p4 id="topbar_subtitle">' + subtitle + `</p4>
             </b>
             <b id="topbar_title_inwrap_secondary">
-                <div id="topbar_title_inwarp_sec_buf"></div><h4 id="topbar_inwrap_title"></h4><p4 id="topbar_inwrap_subtitle"></p4>
+                <div id="topbar_title_inwarp_sec_buf"></div>
+                <div id="topbar_title_inwarp_sec_buf_sec"></div>
+                <h4 id="topbar_inwrap_title"></h4>
+                <p4 id="topbar_inwrap_subtitle"></p4>
             </b>
         </b>
     </div></div>
@@ -112,7 +115,8 @@ function LoadingStatus(type, presistant = false, title = '', subtitle = '') {
             document.getElementById("topbar_title_inwrap_main").style.display = 'none'
             document.getElementById("topbar_title_inwrap_secondary").style.opacity = 1
             document.getElementById("topbar_title_inwrap_secondary").style.maxHeight = 'unset'
-            document.getElementById("topbar_title_inwarp_sec_buf").style.maxHeight = '3.5em'
+            document.getElementById("topbar_title_inwarp_sec_buf").style.maxHeight = '2.75em'
+            document.getElementById("topbar_title_inwarp_sec_buf_sec").style.maxHeight = '0.75em'
         }, 200)
     }
     if (!presistant) {
@@ -122,6 +126,7 @@ function LoadingStatus(type, presistant = false, title = '', subtitle = '') {
         setTimeout(() => {
             document.getElementById("topbar_title_inwrap_secondary").style.opacity = 0
             document.getElementById("topbar_title_inwarp_sec_buf").style.maxHeight = '0'
+            document.getElementById("topbar_title_inwarp_sec_buf_sec").style.maxHeight = '0'
         }, presistTime - 200)
         setTimeout(() => {
             document.getElementById("topbar_title_inwrap_main").style.display = 'block'
